@@ -2,12 +2,7 @@
 *	Copyright <c> Claude Bernard - University Lyon 1 -  2013
 * 	License : This file is part of the DataConf application, which is licensed under a Creative Commons Attribution-NonCommercial 3.0 Unported License. See details at : http://liris.cnrs.fr/lionel.medini/wiki/doku.php?id=dataconf&#licensing 
 *   Author: Lionel MEDINI(supervisor), Florian BACLE, Fiona LEPEUTREC, Benoît DURANT-DE-LA-PASTELLIERE, NGUYEN Hoang Duy Tan
-*   Description: This JSON object contains all the configurations of the application. It is a crutial part of the system, it desribes :
-*				-> The conference informations, the uri, the logo uri and the name.
-*				-> All the datasources defined by their uris, the cross domain  mode they use, and the commandStore (see /model) related to them.
-*				   This command store contains the definition of all the command (a specific parameters+query+callback implementation) that can be send on it.
-*				-> All the routes that the app will use. Each route is configured to display a specific view, if a template exist for this view name (see /templates)
-				   it is rendered, otherwise a generic view is used. The commands we want to send are specified in a "command" array to explicit which command has to be send when the route is catched
+*   Description: This file contain all functions for enrich the ACM ontology with choosen keywords load from a file
 				   
 *   Tags: Ontology, Keywords, Recommendation,ACM
 **/
