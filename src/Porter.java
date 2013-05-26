@@ -5,6 +5,8 @@
    comments: Compile it, import the Porter class into you program and create an instance.
 	     Then use the stripAffixes method of this method which takes a String as 
              input and returns the stem of this String again as a String.
+             
+             Use fro normalized keywords with the Porter Algorithm (english keywords normalization)
 
 */ 
 

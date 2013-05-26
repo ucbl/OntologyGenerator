@@ -60,7 +60,7 @@ public class main {
   /**
    *OWL IRI ONTOLOGY_IRI : create save file for the ontology, already contain ACM ontology
    **/
-  public static final IRI ONTOLOGY_IRI = IRI.create("C:/Users/Fiona Le Peutrec/Desktop/ontoDataConf.owl");
+  public static final IRI ONTOLOGY_IRI = IRI.create("C:/Users/Fiona Le Peutrec/Desktop/ontology.owl");
   final static Charset ENCODING = StandardCharsets.UTF_8;
   /**
    *List of word to delete from keywords because they haven't meaning
@@ -122,7 +122,7 @@ public class main {
      		 keywordMap.get(completeKeywordNormalize).add(orgWord);
 
      	 }else{
-     		 //Else we add a new entry with this keywprd in the map
+     		 //Else we add a new entry with this keyword in the map
          		 ArrayList<String> value = new  ArrayList<String>();
          		 value.add(orgWord);
          		 keywordMap.put(completeKeywordNormalize,value);
@@ -167,12 +167,11 @@ return keywordMap;
 		     			ArrayList<String> completeKeywordNormalize = new  ArrayList<String>();
 	     	     	
 		     			String str = null;
-			     	     	 //On passe chacun des token dans l'algo de porter 
+			     	     	 //We execute the porter algorithm for each token
 			     	     	 while (keyword.hasMoreTokens()) {
 			     	     		  str = keyword.nextToken();
 			     	              String normalizeKeyword = p.stripAffixes(str);
-			     	             // System.out.println(str+" => "+normalizeKeyword);
-			     	              //Permet la reconstruction des keywords à plusieurs mot
+			     	              //Reconstruction several words keywords
 			     	             if(!forbiddenWord.contains(str)){
 			     	         		 ArrayList<String> value = new  ArrayList<String>();
 			     	         		 value.add(label);
@@ -204,7 +203,7 @@ public static boolean isContainInKeywordsConf(ArrayList<String> label,HashMap<Ar
 		String lab = it.next();
 		for(Entry<ArrayList<String>,ArrayList<String>> entry2 : keywordsMap.entrySet()) {
 			  ArrayList<String> key2 = entry2.getKey();
-			  System.out.println(key2 + "contains " + lab +"  "+key2.contains(lab));
+			  //System.out.println(key2 + "contains " + lab +"  "+key2.contains(lab));
 			  if(key2.contains(lab)){
 				  return true;
 			  }
@@ -250,6 +249,7 @@ public static void changeInitialOnto(OWLDataFactory df,OWLOntology ontology,OWLO
 	    	}
     	}
 	}
+    manager.saveOntology(ontology);
 	System.out.println("End of changeInitialOnto");
 	
 }
@@ -274,6 +274,7 @@ public static void eraseDuplicate(OWLOntology ontology,OWLDataFactory df,OWLOnto
 	          manager.saveOntology(ontology);
     	}
 	}
+    manager.saveOntology(ontology);
 	System.out.println("End of eraseDuplicate");
 
 }
@@ -306,8 +307,6 @@ public static void clearInitialOnto(OWLOntology ontology,OWLOntologyManager mana
 		            remover.reset();
 			  }
 	}
-	//Save ontology
-    manager.saveOntology(ontology);
 	System.out.println("End of clearInitialOnto");
 }
 
@@ -340,8 +339,7 @@ public static void addNewClassFromKeywords(HashMap<ArrayList<String>,ArrayList<S
 		  	     OWLAxiom ax = df.getOWLAnnotationAssertionAxiom(cls.getIRI(), labelValue);
 		  	     manager.applyChange(new AddAxiom(ontology, ax));
 	  	     }
-	}
-    manager.saveOntology(ontology);	
+	}	
 	System.out.println("add end");
 }
 		
@@ -398,8 +396,6 @@ public static void addAxiomBetweenOurKeyword(OWLOntologyManager manager,OWLDataF
 			 }
 		}
 	}
-//Save ontology 
-manager.saveOntology(ontology);
 System.out.println("fin add axiom");
 }		
 
@@ -435,7 +431,7 @@ public static void addAxiomBetweenKeywordAndOntology(OWLOntologyManager manager,
 			  	     // We now use the manager to apply the change and save the onto
 			  	   //System.out.println(key1 + " equal " + key2);
 			  	     manager.applyChange(addAxiom);
-			  	     manager.saveOntology(ontology);
+			  	    
 		  		}else{ 
 			  		if(FirstContainTheSecond(key2,key1)){//Keyword contain Label
 			  			 // Now create the SubClass axiom
@@ -444,7 +440,6 @@ public static void addAxiomBetweenKeywordAndOntology(OWLOntologyManager manager,
 				  	     // We now use the manager to apply the change and save the onto
 				  	   //System.out.println(key2 + " contain " + key1);
 				  	     manager.applyChange(addAxiom);
-				  	     manager.saveOntology(ontology);
 			  		}else{
 				  		if(FirstContainTheSecond(key1,key2)){//Label contain Keyword 
 					  	     // Now create the SubClass axiom
@@ -453,7 +448,6 @@ public static void addAxiomBetweenKeywordAndOntology(OWLOntologyManager manager,
 					  	     // We now use the manager to apply the change and save the onto
 					  	     //System.out.println(key1 + " contain " + key2);
 					  	     manager.applyChange(addAxiom);
-					  	     manager.saveOntology(ontology);
 					 
 					  	}
 				  }
@@ -537,7 +531,7 @@ public static void addInstances(OWLOntology ontology,OWLDataFactory df,OWLOntolo
 	    		OWLClassAssertionAxiom classAssertion = df.getOWLClassAssertionAxiom(cls, instance);
 	    		// Add the class assertion
 	    		manager.addAxiom(ontology, classAssertion);
-	    		manager.saveOntology(ontology);
+	    		//manager.saveOntology(ontology);
 	    	}
     	}
 	}
@@ -587,8 +581,7 @@ public static void eraseComments(OWLOntology ontology,OWLDataFactory df,OWLOntol
 	    	
     	}
 	}
-	
-	
+	System.out.println("End eraseComments()");	
 }
 
 /**
@@ -612,7 +605,7 @@ public static void eraseLabels(OWLOntology ontology,OWLDataFactory df,OWLOntolog
     	}
 	}
 	
-	
+	System.out.println("End eraseLabels()");
 }
 	
  public static void main(String[] args) throws Exception {
@@ -620,7 +613,7 @@ public static void eraseLabels(OWLOntology ontology,OWLDataFactory df,OWLOntolog
 			      try {
 			    	  
 			    	  HashMap<ArrayList<String>, ArrayList<String>>  keywordMap = initilizationKeyword();
-			    	  File file = new File("C:/Users/Fiona Le Peutrec/Desktop/ontoDataConf.owl");
+			    	  File file = new File("C:/Users/Fiona Le Peutrec/Desktop/ontology.owl");
 			    	  
 			    	  // Load ontology.
 				      OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -631,21 +624,30 @@ public static void eraseLabels(OWLOntology ontology,OWLDataFactory df,OWLOntolog
 				      HashMap<ArrayList<String>,String> labelContainer = new HashMap<ArrayList<String>,String>(); 
 					  normalizationLabelClass(labelContainer, ontology, df);
 					  eraseDuplicate(ontology,df, manager);
+					  
+	//...................................Execution Options start.................................//
 					  clearInitialOnto(ontology,manager,df,labelContainer,keywordMap);
 					  changeInitialOnto(df,ontology,manager);
+					  manager.saveOntology(ontology);
+					  
 					  addNewClassFromKeywords(keywordMap,ontology,df,manager);
 					  manager.saveOntology(ontology);
 					  
 					  addAxiomBetweenOurKeyword(manager,df,ontology,keywordMap,keywordMap);
+					  manager.saveOntology(ontology);
 					  addAxiomBetweenKeywordAndOntology(manager,df,ontology,labelContainer,keywordMap); 
+					  manager.saveOntology(ontology);
 	
 					  addInstances( ontology, df, manager);
+					  manager.saveOntology(ontology);
 					  
 					  //Reduce ontology size 
 				      eraseComments( ontology, df, manager);
+					  manager.saveOntology(ontology);
 				      eraseLabels( ontology, df, manager);
 				      manager.saveOntology(ontology);
-					  
+	//...................................Execution Options end.................................//
+				      
 				
 			      } catch (OWLOntologyCreationException e) {
 			    	  e.printStackTrace();
