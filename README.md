@@ -16,30 +16,7 @@ How to use the ontology Generator ?
 
 -------------- 1
 Firts,erase olds keywords and copy your keywords list in the keywords.txt file.
-Your file must look like that :
-
-//Start file keywords.txt
-	Aggregate Views
-    Attempto Controlled English
-    B2B
-    BMEcat
-    Bipolar abstract argumentation
-    BnF
-    Cloud computing
-    Controlled Natural Languages
-    Creating Linked Data
-    CubicWeb
-    Culture
-    DBpedia
-    Database mapping tools
-    Digital Libraries and Cultural Heritage
-    E-Commerce
-    Encoded Archival Description
-    Entity linking
-    Evaluation Measures
-	....
-	....
-	//End file keywords.txt
+Your keywords must be copy in the same way as olds keywords (one keyword by line and no empty line)
 	
 -------------- 2 
 Replace the onto.owl with th acm.owl 
